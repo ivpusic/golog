@@ -1,7 +1,7 @@
 package main
 
 import "github.com/ivpusic/golog"
-import "github.com/ivpusic/golog/appender"
+import "github.com/ivpusic/golog/appenders"
 
 func main() {
 	logger := golog.Default
@@ -11,11 +11,17 @@ func main() {
 
 	appLogger.Level = golog.WARN
 
-	fileAppender := appender.GetFileAppender(appender.Conf{
+	fileAppender := appenders.File(golog.Conf{
 		"path": "./log.txt",
 	})
 
 	appLogger.Enable(fileAppender)
+
+	appLogger.Enable(appenders.Mongo(golog.Conf{
+		"port":       "27017",
+		"db":         "somedb",
+		"collection": "logs",
+	}))
 
 	appLogger.Error("log from application logger")
 	appLogger.Warn("log from application logger")

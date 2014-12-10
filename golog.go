@@ -2,6 +2,8 @@ package golog
 
 import "os"
 
+type Conf map[string]string
+
 var (
 	Default *Logger
 	loggers map[string]*Logger
