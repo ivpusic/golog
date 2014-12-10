@@ -44,18 +44,18 @@ type Level struct {
 }
 
 type Log struct {
-	Time    time.Time
-	Message string
-	Level   Level
-	Data    []interface{}
-	Pid     int
-	Logger  *Logger
+	Time    time.Time     `json:"time"`
+	Message string        `json:"message"`
+	Level   Level         `json:"level"`
+	Data    []interface{} `json:"data"`
+	Pid     int           `json:"pid"`
+	Logger  *Logger       `json:"logger"`
 }
 
 type Logger struct {
 	appenders []Appender
-	Name      string
-	Level     Level `json:"-"`
+	Name      string `json:"name"`
+	Level     Level  `json:"-"`
 }
 
 func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {

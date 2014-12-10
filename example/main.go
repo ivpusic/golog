@@ -9,7 +9,7 @@ func main() {
 
 	appLogger := golog.GetLogger("application")
 
-	appLogger.Level = golog.WARN
+	appLogger.Level = golog.DEBUG
 
 	fileAppender := appenders.File(golog.Conf{
 		"path": "./log.txt",
@@ -18,7 +18,7 @@ func main() {
 	appLogger.Enable(fileAppender)
 
 	appLogger.Enable(appenders.Mongo(golog.Conf{
-		"port":       "27017",
+		"host":       "127.0.0.1:27017",
 		"db":         "somedb",
 		"collection": "logs",
 	}))

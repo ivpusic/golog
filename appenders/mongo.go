@@ -2,10 +2,11 @@ package appenders
 
 import (
 	"github.com/ivpusic/golog"
+	"gopkg.in/mgo.v2"
 )
 
 type MongoAppender struct {
-	host       string
+	session    *mgo.Session
 	db         string
 	collection string
 }
@@ -15,13 +16,30 @@ func (ma *MongoAppender) Id() string {
 }
 
 func (ma *MongoAppender) Append(log golog.Log) error {
+	ma.session.Copy()
+	defer ma.session.Clone()
+
+	c := ma.session.DB(ma.db).C(ma.collection)
+	c.Insert(log)
+
 	return nil
 }
 
 func Mongo(cnf golog.Conf) *MongoAppender {
+	sess, err := mgo.DialWithInfo(&mgo.DialInfo{
+		Database: cnf["db"],
+		Username: cnf["username"],
+		Password: cnf["password"],
+		Addrs:    []string{cnf["host"]},
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
 	return &MongoAppender{
-		host:       cnf["host"],
 		db:         cnf["db"],
 		collection: cnf["collection"],
+		session:    sess,
 	}
 }

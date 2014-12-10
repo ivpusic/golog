@@ -1,4 +1,27 @@
-{"Time":"2014-12-10T14:53:37.325561905+01:00","Message":"log from application logger","Level":{"Name":"ERROR"},"Data":null,"Pid":3699,"Logger":{"Name":"application"}}
-{"Time":"2014-12-10T14:53:37.371473434+01:00","Message":"log from application logger","Level":{"Name":"WARN"},"Data":null,"Pid":3699,"Logger":{"Name":"application"}}
-{"Time":"2014-12-10T14:53:38.324342916+01:00","Message":"log from application logger","Level":{"Name":"ERROR"},"Data":null,"Pid":3720,"Logger":{"Name":"application"}}
-{"Time":"2014-12-10T14:53:38.359402364+01:00","Message":"log from application logger","Level":{"Name":"WARN"},"Data":null,"Pid":3720,"Logger":{"Name":"application"}}
+{"time":"2014-12-10T22:42:46.068090349+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":13550,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:42:46.076321229+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":13550,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:42:47.556390991+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":13584,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:42:47.563255597+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":13584,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:50:08.917864082+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":14812,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:50:08.924987167+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":14812,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:04.754380454+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":15975,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:04.762350625+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":15975,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:41.749182982+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":16136,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:41.762514046+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":16136,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:55.866441228+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":16230,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:54:55.873942523+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":16230,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:11.327134328+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":16373,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:11.341343443+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":16373,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:11.346405128+01:00","message":"false","level":{"Name":"DEBUG"},"data":null,"pid":16373,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:35.900834804+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":16567,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:35.909255473+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":16567,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:55:35.913753431+01:00","message":"false","level":{"Name":"DEBUG"},"data":null,"pid":16567,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:56:22.474074777+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":16769,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:56:22.48298216+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":16769,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:56:22.48705594+01:00","message":"true","level":{"Name":"DEBUG"},"data":null,"pid":16769,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:58:06.134206094+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":17296,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:58:06.141802336+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":17296,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:59:15.608875603+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":17508,"logger":{"name":"application"}}
+{"time":"2014-12-10T22:59:15.616318632+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":17508,"logger":{"name":"application"}}
+{"time":"2014-12-10T23:00:46.00835535+01:00","message":"log from application logger","level":{"Name":"ERROR"},"data":null,"pid":17856,"logger":{"name":"application"}}
+{"time":"2014-12-10T23:00:46.021660422+01:00","message":"log from application logger","level":{"Name":"WARN"},"data":null,"pid":17856,"logger":{"name":"application"}}
