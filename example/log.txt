@@ -1,0 +1,4 @@
+{"Time":"2014-12-10T14:53:37.325561905+01:00","Message":"log from application logger","Level":{"Name":"ERROR"},"Data":null,"Pid":3699,"Logger":{"Name":"application"}}
+{"Time":"2014-12-10T14:53:37.371473434+01:00","Message":"log from application logger","Level":{"Name":"WARN"},"Data":null,"Pid":3699,"Logger":{"Name":"application"}}
+{"Time":"2014-12-10T14:53:38.324342916+01:00","Message":"log from application logger","Level":{"Name":"ERROR"},"Data":null,"Pid":3720,"Logger":{"Name":"application"}}
+{"Time":"2014-12-10T14:53:38.359402364+01:00","Message":"log from application logger","Level":{"Name":"WARN"},"Data":null,"Pid":3720,"Logger":{"Name":"application"}}
