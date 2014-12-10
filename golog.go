@@ -24,7 +24,8 @@ func GetLogger(name string) *Logger {
 	logger, ok := loggers["foo"]
 	if !ok {
 		logger = &Logger{
-			Name: name,
+			Name:  name,
+			Level: DEBUG,
 		}
 
 		logger.Enable(StdoutAppender())
