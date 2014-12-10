@@ -7,7 +7,7 @@ import (
 )
 
 type Appender interface {
-	Append(log Log) error
+	Append(log Log)
 	Id() string
 }
 
@@ -19,11 +19,10 @@ var (
 	instance *Stdout
 )
 
-func (s *Stdout) Append(log Log) error {
+func (s *Stdout) Append(log Log) {
 	msg := fmt.Sprintf("%s - [%s] - %s", log.Logger.Name, log.Level.Name, log.Message)
 	color.Out = out
 	color.Print(msg).In(log.Level.color)
-	return nil
 }
 
 func (s *Stdout) Id() string {

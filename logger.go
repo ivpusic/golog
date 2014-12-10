@@ -56,6 +56,7 @@ type Logger struct {
 	appenders []Appender
 	Name      string `json:"name"`
 	Level     Level  `json:"-"`
+	DoPanic   bool   `json:"-"`
 }
 
 func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {

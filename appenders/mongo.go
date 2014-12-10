@@ -15,14 +15,12 @@ func (ma *MongoAppender) Id() string {
 	return "github.com/ivpusic/golog/appenders/mongo"
 }
 
-func (ma *MongoAppender) Append(log golog.Log) error {
+func (ma *MongoAppender) Append(log golog.Log) {
 	ma.session.Copy()
 	defer ma.session.Clone()
 
 	c := ma.session.DB(ma.db).C(ma.collection)
 	c.Insert(log)
-
-	return nil
 }
 
 func Mongo(cnf golog.Conf) *MongoAppender {

@@ -10,13 +10,12 @@ type testAppender struct {
 	errorCount int
 }
 
-func (s *testAppender) Append(log Log) error {
+func (s *testAppender) Append(log Log) {
 	s.count += 1
 
 	if log.Level.value >= 30 {
 		s.errorCount += 1
 	}
-	return nil
 }
 
 func cleanupTest() {
