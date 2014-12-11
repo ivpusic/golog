@@ -4,6 +4,8 @@ golog
 
 Simple but powerful logging library
 
+![alt text](http://s2.postimg.org/gocipacjt/Screenshot_from_2014_12_11_13_11_11.png "")
+
 ### Example
 ```Go
 package main
