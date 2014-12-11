@@ -51,7 +51,7 @@ package main
 
 import "github.com/ivpusic/golog"
 
-func simple() {
+func main() {
 	// default logger
 	logger := golog.Default
 	logger.Debug("some message")
@@ -164,7 +164,7 @@ func (s *CustomAppender) Id() string {
 	return "id/of/custom/appender"
 }
 
-func custom() {
+func main() {
 	logger := golog.Default
 
 	// make custom appender instance
