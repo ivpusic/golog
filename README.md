@@ -90,13 +90,13 @@ func main() {
 Golog provides set of default appenders and ultra simple API for adding new ones.
 
 ##### Stdout
-This logger is enabled by default, so by default you should see messages in your terminal with following structure:
+This appender is enabled by default, so by default you should see messages in your terminal with following structure:
 ```
 {logger_name} {date} {level} {message}
 ```
 
 #### Enabling appenders
-Stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
+As you know stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
 
 ##### File
 ```Go
