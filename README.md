@@ -96,7 +96,7 @@ This appender is enabled by default, so by default you should see messages in yo
 ```
 
 #### Enabling appenders
-As you know stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
+As you know stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of logger.
 
 ##### File
 ```Go
