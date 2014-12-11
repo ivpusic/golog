@@ -1,5 +1,6 @@
 golog
 =====
+[![Build Status](https://travis-ci.org/ivpusic/golog.svg?branch=master)](https://travis-ci.org/ivpusic/golog)
 
 Simple but powerful logging library
 
@@ -176,6 +177,9 @@ func custom() {
 	logger.Debug("this will go to custom appender also")
 }
 ```
+
+### GoDoc
+For additional documentation and detailed info about package structures please visit  [this](https://godoc.org/github.com/ivpusic/golog) link.
 
 # License
 MIT
