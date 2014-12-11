@@ -27,7 +27,7 @@ func TestMongoAppend(t *testing.T) {
 	}
 
 	logtext := "some message"
-	defer session.Clone()
+	defer session.Close()
 
 	c := session.DB(db).C(coll)
 	// remove old logs (if any)

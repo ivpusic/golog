@@ -17,7 +17,7 @@ func (ma *MongoAppender) Id() string {
 
 func (ma *MongoAppender) Append(log golog.Log) {
 	ma.session.Copy()
-	defer ma.session.Clone()
+	defer ma.session.Close()
 
 	c := ma.session.DB(ma.db).C(ma.collection)
 	c.Insert(log)
