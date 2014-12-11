@@ -8,7 +8,7 @@ import (
 	"text/tabwriter"
 )
 
-// interface for implementing custom appenders
+// Interface for implementing custom appenders.
 type Appender interface {
 	// method for injecting log to some source
 	// when appender receives Log instance through this method,
@@ -20,6 +20,7 @@ type Appender interface {
 	Id() string
 }
 
+// Representing stdout appender.
 type Stdout struct {
 	writer     *tabwriter.Writer
 	dateformat string
@@ -30,6 +31,7 @@ var (
 	out      io.Writer
 )
 
+// Appending logs to stdout.
 func (s *Stdout) Append(log Log) {
 	msg := fmt.Sprintf(" {cyan}%s \t {default}%s {%s}%s[%s] ▶ %s",
 		log.Logger.Name,
@@ -49,10 +51,13 @@ func (s *Stdout) Append(log Log) {
 	s.writer.Flush()
 }
 
+// Getting Id of stdout appender
+// Id of default stdout appender is "github.com/ivpusic/golog/stdout"
 func (s *Stdout) Id() string {
 	return "github.com/ivpusic/golog/stdout"
 }
 
+// Function for creating and returning new stdout appender instance.
 func StdoutAppender() *Stdout {
 	if instance == nil {
 		w := new(tabwriter.Writer)

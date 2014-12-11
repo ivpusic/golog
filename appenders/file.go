@@ -11,6 +11,7 @@ type FileAppender struct {
 	path string
 }
 
+// github.com/ivpusic/golog/appender/file
 func (fa *FileAppender) Id() string {
 	return "github.com/ivpusic/golog/appender/file"
 }

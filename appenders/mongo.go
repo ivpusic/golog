@@ -11,6 +11,7 @@ type MongoAppender struct {
 	collection string
 }
 
+// github.com/ivpusic/golog/appenders/mongo
 func (ma *MongoAppender) Id() string {
 	return "github.com/ivpusic/golog/appenders/mongo"
 }

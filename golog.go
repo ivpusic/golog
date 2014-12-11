@@ -1,8 +1,10 @@
 package golog
 
+// Convinient type for representing appender configuration
 type Conf map[string]string
 
 var (
+	// instance of default logger
 	Default *Logger
 	loggers map[string]*Logger
 )
@@ -16,8 +18,8 @@ func init() {
 	Default.Enable(StdoutAppender())
 }
 
-// getting logger instance
-// method returns singleton logger instance
+// Function for getting logger instance.
+// Method returns singleton logger instance.
 func GetLogger(name string) *Logger {
 	logger, ok := loggers["foo"]
 	if !ok {

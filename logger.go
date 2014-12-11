@@ -42,6 +42,7 @@ var (
 	}
 )
 
+// Representing log level
 type Level struct {
 	// level priority value
 	// bigger number has bigger priority
@@ -55,6 +56,7 @@ type Level struct {
 	Name string
 }
 
+// Representing one Log instance
 type Log struct {
 	// date and time of log
 	Time time.Time `json:"time"`
@@ -72,6 +74,9 @@ type Log struct {
 	Logger *Logger `json:"logger"`
 }
 
+// Representing one logger instance
+// Logger can have multiple appenders, it can enable it,
+// or disable it. Also you can define level which will be specific to this logger.
 type Logger struct {
 	// list of appenders
 	appenders []Appender
@@ -86,7 +91,7 @@ type Logger struct {
 	DoPanic bool `json:"-"`
 }
 
-// making and sending log entry to appenders if log level is appropriate
+// Making and sending log entry to appenders if log level is appropriate.
 func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	if lvl.value >= l.Level.value {
 		log := Log{
@@ -104,45 +109,45 @@ func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	}
 }
 
-// making log with DEBUG level
+// Making log with DEBUG level.
 func (l *Logger) Debug(msg string, data ...interface{}) {
 	l.makeLog(msg, DEBUG, data)
 }
 
-// making log with INFO level
+// Making log with INFO level.
 func (l *Logger) Info(msg string, data ...interface{}) {
 	l.makeLog(msg, INFO, data)
 }
 
-// making log with WARN level
+// Making log with WARN level.
 func (l *Logger) Warn(msg string, data ...interface{}) {
 	l.makeLog(msg, WARN, data)
 }
 
-// making log with ERROR level
+// Making log with ERROR level.
 func (l *Logger) Error(msg string, data ...interface{}) {
 	l.makeLog(msg, ERROR, data)
 }
 
-// making log with PANIC level
+// Making log with PANIC level.
 func (l *Logger) Panic(msg string, data ...interface{}) {
 	l.makeLog(msg, PANIC, data)
 	panic(msg)
 }
 
-// when want to send logs to another appender,
-// you should create instance of appender and call this method
-// method is expecting appender instance to be passed
-// after this method, passed appender will receive logs
+// When you want to send logs to another appender,
+// you should create instance of appender and call this method.
+// Method is expecting appender instance to be passed
+// to this method. At the end passed appender will receive logs
 func (l *Logger) Enable(appender Appender) {
 	l.appenders = append(l.appenders, appender)
 }
 
-// if you want to disable logs from some appender you can use this method
-// you have to call method either with appender instance
-// or you can pass appender Id as argument
-// if appender is found, it will be removed from list of appenders of this logger,
-// and all other further logs won't be received by this appender
+// If you want to disable logs from some appender you can use this method.
+// You have to call method either with appender instance,
+// or you can pass appender Id as argument.
+// If appender is found, it will be removed from list of appenders of this logger,
+// and all other further logs won't be received by this appender.
 func (l *Logger) Disable(target interface{}) {
 	var id string
 	var appender Appender
