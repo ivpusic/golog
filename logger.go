@@ -2,6 +2,7 @@ package golog
 
 import (
 	"os"
+	"strings"
 	"time"
 )
 
@@ -40,6 +41,13 @@ var (
 		icon:  "☹",
 		Name:  "PANIC",
 	}
+
+	// limit when logger name will be normalized
+	// normalized names are shown in console using stdout appender
+	namelen = 18
+
+	// supported name separators
+	separators []byte = []byte{'/', '.', '-'}
 )
 
 // Representing log level
@@ -47,11 +55,14 @@ type Level struct {
 	// level priority value
 	// bigger number has bigger priority
 	value int
+
 	// color which will used by stdout appender
 	// github.com/ivpusic/go-clicolor
 	color string
+
 	// ascii icon of level
 	icon string
+
 	// level name
 	Name string
 }
@@ -60,16 +71,21 @@ type Level struct {
 type Log struct {
 	// date and time of log
 	Time time.Time `json:"time"`
+
 	// logged message
 	Message string `json:"message"`
+
 	// log level
 	Level Level `json:"level"`
+
 	// additional data sent to log
 	// this part should be handled by appenders
 	// appender can decide to ignore data or to store it on specific way
 	Data []interface{} `json:"data"`
+
 	// id of process which made log
 	Pid int `json:"pid"`
+
 	// logger instance
 	Logger *Logger `json:"logger"`
 }
@@ -80,11 +96,18 @@ type Log struct {
 type Logger struct {
 	// list of appenders
 	appenders []Appender
+
+	// is logged disabled
+	disabled bool
+
 	// name of logger
 	// logger name will be shown in stdout appender output
+	// also it can be used to enable/disable logger
 	Name string `json:"name"`
+
 	// minimum level of log to be shown
 	Level Level `json:"-"`
+
 	// if this flag is set to true, in case any errors in appender
 	// appender should panic. This also depends on appender implementation,
 	// so appender can decide to ignore or to accept information in this flag
@@ -93,6 +116,10 @@ type Logger struct {
 
 // Making and sending log entry to appenders if log level is appropriate.
 func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
+	if l.disabled {
+		return
+	}
+
 	if lvl.value >= l.Level.value {
 		log := Log{
 			Time:    time.Now(),
@@ -106,6 +133,81 @@ func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 		for _, appender := range l.appenders {
 			appender.Append(log)
 		}
+	}
+}
+
+// method will normalize names if they are too big or too short
+// normal name length if defined by namelen variable
+// if
+func (l *Logger) normalizeName() {
+	length := len(l.Name)
+
+	// name is ok as it is
+	if length == namelen {
+		return
+	}
+
+	// name is too short, add some spaces
+	if length < namelen {
+		l.normalizeNameLen()
+	}
+
+	// name is too long
+	// do best to normalize it
+
+	var (
+		normalized string
+		parts      []string
+		separator  byte
+	)
+
+	// try split long name using different separators
+	// this first one which can split name into smaller parts will be used
+	for _, sep := range separators {
+		parts = strings.Split(l.Name, string(sep))
+		if len(parts) > 1 {
+			separator = sep
+			break
+		}
+	}
+
+	// if we sucesufully splitted string into multiple parts
+	if len(parts) > 1 {
+		for i, str := range parts {
+			// if part length is bigger than zero
+			if len(str) > 0 {
+				normalized += str[:1]
+				if i != (len(parts) - 1) {
+					normalized += string(separator)
+				}
+			}
+		}
+
+		// if still to long
+		if len(normalized) > namelen {
+			normalized = normalized[:namelen]
+		}
+	} else {
+		length := len(l.Name)
+		if length > namelen {
+			normalized = l.Name[:namelen]
+		} else {
+			normalized = l.Name[0 : length-1]
+		}
+	}
+
+	l.Name = normalized
+	if len(l.Name) < namelen {
+		l.normalizeNameLen()
+	}
+}
+
+// if name is still to short we will add spaces
+func (l *Logger) normalizeNameLen() {
+	length := len(l.Name)
+	missing := namelen - length
+	for i := 0; i < missing; i++ {
+		l.Name += " "
 	}
 }
 

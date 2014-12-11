@@ -33,7 +33,7 @@ var (
 
 // Appending logs to stdout.
 func (s *Stdout) Append(log Log) {
-	msg := fmt.Sprintf(" {cyan}%s \t {default}%s {%s}%s[%s] ▶ %s",
+	msg := fmt.Sprintf(" {cyan}%s {default}%s {%s}%s[%s] ▶ %s",
 		log.Logger.Name,
 		log.Time.Format(s.dateformat),
 		log.Level.color,

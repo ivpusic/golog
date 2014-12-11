@@ -32,6 +32,7 @@ func main() {
 - Mongo appender
 - Simple API for writing custom appenders
 - Enabling/disabling appenders
+- Enabling/disabling loggers
 
 ### Installation
 ```Shell
@@ -53,21 +54,46 @@ package main
 
 import "github.com/ivpusic/golog"
 
-func main() {
-	// default logger
-	logger := golog.Default
+func main() {	
+	// get logger with name github.com/someuser/somelib
+	// if logged doesn't exists, it will be created
+	logger := golog.GetLogger("github.com/someuser/somelib")
+
+	// this can be very useful if library which you are using uses
+	// golog too. Then you can control logger level or logger appenders
+	logger.Level = golog.DEBUG
+
+	// or you can just log something using that logger
 	logger.Debug("some message")
-	
-	// another logger
-	// in this case we are issuing logger with name application
-	// but it could be something else also
-	application := golog.GetLogger("application")
-	application.Debug("some message")
+}
+```
+
+#### Enabling/Disabling loggers
+If library which you are using uses ``golog`` you can explicitly enable or disable logger. This gives you control over logs which you want to see (in your console for example), and the ones which you don't.
+```Go
+package main
+
+import "github.com/ivpusic/golog"
+
+func main() {
+	// you have to provide logger name in order to disable it
+	golog.Disable("github.com/someuser/somelib")
+
+	// all loggers are enabled by default
+	// if you have case that at some point you disable it,
+	// and later you want to enable it again, you can use this method
+	golog.Enable("github.com/someuser/somelib")
 }
 ```
 
 ### Appenders
 Golog provides set of default appenders and ultra simple API for adding new ones.
+
+##### Stdout
+This logger is enabled by default, so by default you should see messages in your terminal with following structure:
+```
+{logger_name} {date} {level} {message}
+```
 
 #### Enabling appenders
 Stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
@@ -122,7 +148,7 @@ func main() {
 ```
 
 #### Disabling appenders
-You can disable appender by calling ``Disable`` method on appender.
+You can disable appender by calling ``Disable`` method of logger.
 
 ```Go
 package main

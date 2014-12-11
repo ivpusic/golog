@@ -10,18 +10,14 @@ var (
 )
 
 func init() {
-	Default = &Logger{
-		Name:  "default",
-		Level: DEBUG,
-	}
-
-	Default.Enable(StdoutAppender())
+	loggers = map[string]*Logger{}
+	Default = GetLogger("default")
 }
 
 // Function for getting logger instance.
 // Method returns singleton logger instance.
 func GetLogger(name string) *Logger {
-	logger, ok := loggers["foo"]
+	logger, ok := loggers[name]
 	if !ok {
 		logger = &Logger{
 			Name:  name,
@@ -29,7 +25,31 @@ func GetLogger(name string) *Logger {
 		}
 
 		logger.Enable(StdoutAppender())
+		logger.normalizeName()
+		loggers[name] = logger
 	}
 
 	return logger
+}
+
+// Will disable all logs comming from logger with provided name
+func Disable(name string) {
+	logger := loggers[name]
+	if logger == nil {
+		Default.Warn("cannot find logger " + name)
+		return
+	}
+
+	logger.disabled = true
+}
+
+// Will enable all logs comming to logger with provided name
+func Enable(name string) {
+	logger := loggers[name]
+	if logger == nil {
+		Default.Warn("cannot find logger " + name)
+		return
+	}
+
+	logger.disabled = false
 }

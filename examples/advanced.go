@@ -36,4 +36,13 @@ func advanced() {
 	// you can disable appender by passing appender id
 	// id is returned with appender.Id() method
 	application.Disable("github.com/ivpusic/golog/appender/file")
+
+	// you can disable some logger completely
+	// you have to provide logger name in order to disable it
+	golog.Disable("github.com/someuser/somelib")
+
+	// all loggers are enabled by default
+	// if you have case that at some point you disable it,
+	// and later you want to enable it again, you can use this method
+	golog.Enable("github.com/someuser/somelib")
 }

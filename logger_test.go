@@ -19,6 +19,8 @@ func (s *testAppender) Append(log Log) {
 }
 
 func cleanupTest() {
+	loggers = map[string]*Logger{}
+
 	Default = &Logger{
 		Name:  "default",
 		Level: DEBUG,
@@ -165,4 +167,45 @@ func TestLogCallsWithLevel(t *testing.T) {
 	Default.Error("some msg")
 
 	assert.Exactly(t, 8, ta.count)
+}
+
+func normalizeNameLenInTest(name string) string {
+	length := len(name)
+	missing := namelen - length
+
+	for i := 0; i < missing; i++ {
+		name += " "
+	}
+
+	return name
+}
+
+func TestNormalizeName(t *testing.T) {
+	// name is too long
+	l := GetLogger("s.o.m.e.r.e.a.l.l.y.l.o.n.g.n.a.m.e.t.e.s.t.n.a.m.e.")
+	l.Debug(l.Name)
+	assert.Equal(t, normalizeNameLenInTest("s.o.m.e.r.e.a.l.l."), l.Name)
+
+	l = GetLogger("github.com/ivpusic/golog")
+	l.Debug(l.Name)
+	assert.Equal(t, normalizeNameLenInTest("g/i/g"), l.Name)
+
+	l = GetLogger("github.com.ivpusic.golog")
+	l.Debug(l.Name)
+	assert.Equal(t, normalizeNameLenInTest("g.c.i.g"), l.Name)
+
+	// name is too short
+	l = GetLogger("main")
+	l.Debug(l.Name)
+	assert.Equal(t, normalizeNameLenInTest("main"), l.Name)
+
+	// name is correct
+	rightName := ""
+	for i := 0; i < namelen; i++ {
+		rightName += "a"
+	}
+
+	l = GetLogger(rightName)
+	l.Debug(l.Name)
+	assert.Equal(t, rightName, l.Name)
 }
