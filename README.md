@@ -173,7 +173,7 @@ func main() {
 	// in this case we are disabling file appender, so we will pass it's id
 	logger.Disable("github.com/ivpusic/golog/appender/file")
 
-  // this log won't go to disable appender
+  	// this log won't go to disabled appender
 	logger.Debug("some message")
 }
 ```
