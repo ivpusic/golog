@@ -48,7 +48,7 @@ Currently supported levels are
 - PANIC (in this case program will panic)
 
 ### Multiple loggers
-You can ask ``golog`` for logger instance. Logger instances are singletones.
+You can ask ``golog`` for logger instance. Logger instances are singletons.
 ```Go
 package main
 
