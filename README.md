@@ -2,7 +2,7 @@ golog
 =====
 [![Build Status](https://travis-ci.org/ivpusic/golog.svg?branch=master)](https://travis-ci.org/ivpusic/golog)
 
-Simple but powerful logging library
+Simple but powerful go logging library
 
 ![alt text](http://s2.postimg.org/gocipacjt/Screenshot_from_2014_12_11_13_11_11.png "")
 
@@ -67,10 +67,10 @@ func main() {
 ```
 
 ### Appenders
-Golog provided set of default appenders and provides ultra simple API for adding new ones.
+Golog provides set of default appenders and ultra simple API for adding new ones.
 
 #### Enabling appenders
-Stdout appender is enabled by default, and you can enable additional appenders using ``Enable`` method of appender.
+Stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
 
 ##### File
 ```Go
