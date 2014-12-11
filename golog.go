@@ -1,7 +1,5 @@
 package golog
 
-import "os"
-
 type Conf map[string]string
 
 var (
@@ -10,8 +8,6 @@ var (
 )
 
 func init() {
-	out = os.Stdout
-
 	Default = &Logger{
 		Name:  "default",
 		Level: DEBUG,

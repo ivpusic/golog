@@ -36,18 +36,5 @@ func TestStdoutAppender(t *testing.T) {
 	fmt.Println(out)
 
 	lines := strings.Split(out, "\n")
-	for i, line := range lines {
-		switch i {
-		case 0:
-			assert.Equal(t, "[34mdefault - [DEBUG] - debug[0m", line)
-		case 1:
-			assert.Equal(t, "[32mdefault - [INFO] - info[0m", line)
-		case 2:
-			assert.Equal(t, "[33mdefault - [WARN] - warn[0m", line)
-		case 3:
-			assert.Equal(t, "[31mdefault - [ERROR] - error[0m", line)
-		default:
-		}
-	}
-	assert.True(t, true)
+	assert.Exactly(t, len(lines), 5)
 }

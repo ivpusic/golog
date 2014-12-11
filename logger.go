@@ -9,18 +9,21 @@ var (
 	DEBUG = Level{
 		value: 10,
 		color: "blue",
+		icon:  "★",
 		Name:  "DEBUG",
 	}
 
 	INFO = Level{
 		value: 20,
 		color: "green",
+		icon:  "♥",
 		Name:  "INFO",
 	}
 
 	WARN = Level{
 		value: 30,
 		color: "yellow",
+		icon:  "\u26A0",
 		Name:  "WARN",
 	}
 
@@ -28,19 +31,22 @@ var (
 		value: 40,
 		color: "red",
 		Name:  "ERROR",
+		icon:  "✖",
 	}
 
 	PANIC = Level{
 		value: 50,
 		color: "black",
+		icon:  "☹",
 		Name:  "PANIC",
 	}
 )
 
 type Level struct {
 	value int
-	Name  string
 	color string
+	icon  string
+	Name  string
 }
 
 type Log struct {

@@ -6,6 +6,13 @@ func simple() {
 	// get default logger
 	logger := golog.Default
 
+	// default level for all loggers is DEBUG
+	// you can easily change it it you want
+	logger.Level = golog.WARN
+
 	// log something
 	logger.Debug("some message")
+}
+
+func main() {
 }
