@@ -84,6 +84,7 @@ func main() {
 
 	// make instance of file appender and enable it
 	logger.Enable(appenders.File(golog.Conf{
+		// file in which logs will be saved
 		"path": "/path/to/log.txt",
 	}))
 
@@ -103,10 +104,16 @@ func main() {
 
 	// make instance of mongo appender and enable it
 	logger.Enable(appenders.Mongo(golog.Conf{
+		// host and database port or target mongo database
+		// where logs will be saved
 		"host":       "127.0.0.1:27017",
+		// target database in which logs will be saved
 		"db":         "somedb",
+		// target collection in which logs will be saved
 		"collection": "logs",
+		// database username (if exists)
 		"username":   "myusername",
+		// database password (if exists)
 		"password":   "mypassword",
 	}))
 

@@ -8,8 +8,15 @@ import (
 	"text/tabwriter"
 )
 
+// interface for implementing custom appenders
 type Appender interface {
+	// method for injecting log to some source
+	// when appender receives Log instance through this method,
+	// it should decide what to do with log
 	Append(log Log)
+
+	// method will return appender ID
+	// it will be used for disabling appenders
 	Id() string
 }
 

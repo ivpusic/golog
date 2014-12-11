@@ -16,6 +16,8 @@ func init() {
 	Default.Enable(StdoutAppender())
 }
 
+// getting logger instance
+// method returns singleton logger instance
 func GetLogger(name string) *Logger {
 	logger, ok := loggers["foo"]
 	if !ok {

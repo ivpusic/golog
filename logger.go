@@ -43,28 +43,50 @@ var (
 )
 
 type Level struct {
+	// level priority value
+	// bigger number has bigger priority
 	value int
+	// color which will used by stdout appender
+	// github.com/ivpusic/go-clicolor
 	color string
-	icon  string
-	Name  string
+	// ascii icon of level
+	icon string
+	// level name
+	Name string
 }
 
 type Log struct {
-	Time    time.Time     `json:"time"`
-	Message string        `json:"message"`
-	Level   Level         `json:"level"`
-	Data    []interface{} `json:"data"`
-	Pid     int           `json:"pid"`
-	Logger  *Logger       `json:"logger"`
+	// date and time of log
+	Time time.Time `json:"time"`
+	// logged message
+	Message string `json:"message"`
+	// log level
+	Level Level `json:"level"`
+	// additional data sent to log
+	// this part should be handled by appenders
+	// appender can decide to ignore data or to store it on specific way
+	Data []interface{} `json:"data"`
+	// id of process which made log
+	Pid int `json:"pid"`
+	// logger instance
+	Logger *Logger `json:"logger"`
 }
 
 type Logger struct {
+	// list of appenders
 	appenders []Appender
-	Name      string `json:"name"`
-	Level     Level  `json:"-"`
-	DoPanic   bool   `json:"-"`
+	// name of logger
+	// logger name will be shown in stdout appender output
+	Name string `json:"name"`
+	// minimum level of log to be shown
+	Level Level `json:"-"`
+	// if this flag is set to true, in case any errors in appender
+	// appender should panic. This also depends on appender implementation,
+	// so appender can decide to ignore or to accept information in this flag
+	DoPanic bool `json:"-"`
 }
 
+// making and sending log entry to appenders if log level is appropriate
 func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	if lvl.value >= l.Level.value {
 		log := Log{
@@ -82,31 +104,45 @@ func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	}
 }
 
+// making log with DEBUG level
 func (l *Logger) Debug(msg string, data ...interface{}) {
 	l.makeLog(msg, DEBUG, data)
 }
 
+// making log with INFO level
 func (l *Logger) Info(msg string, data ...interface{}) {
 	l.makeLog(msg, INFO, data)
 }
 
+// making log with WARN level
 func (l *Logger) Warn(msg string, data ...interface{}) {
 	l.makeLog(msg, WARN, data)
 }
 
+// making log with ERROR level
 func (l *Logger) Error(msg string, data ...interface{}) {
 	l.makeLog(msg, ERROR, data)
 }
 
+// making log with PANIC level
 func (l *Logger) Panic(msg string, data ...interface{}) {
 	l.makeLog(msg, PANIC, data)
 	panic(msg)
 }
 
+// when want to send logs to another appender,
+// you should create instance of appender and call this method
+// method is expecting appender instance to be passed
+// after this method, passed appender will receive logs
 func (l *Logger) Enable(appender Appender) {
 	l.appenders = append(l.appenders, appender)
 }
 
+// if you want to disable logs from some appender you can use this method
+// you have to call method either with appender instance
+// or you can pass appender Id as argument
+// if appender is found, it will be removed from list of appenders of this logger,
+// and all other further logs won't be received by this appender
 func (l *Logger) Disable(target interface{}) {
 	var id string
 	var appender Appender
