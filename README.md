@@ -104,7 +104,7 @@ func main() {
 
 	// make instance of mongo appender and enable it
 	logger.Enable(appenders.Mongo(golog.Conf{
-		// host and database port or target mongo database
+		// host and database port of target mongo database
 		// where logs will be saved
 		"host":       "127.0.0.1:27017",
 		// target database in which logs will be saved
