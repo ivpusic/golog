@@ -1,6 +1,7 @@
 package golog
 
 import (
+	"fmt"
 	"os"
 	"strings"
 	"time"
@@ -116,7 +117,7 @@ type Logger struct {
 }
 
 // Making and sending log entry to appenders if log level is appropriate.
-func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
+func (l *Logger) makeLog(msg interface{}, lvl Level, data []interface{}) {
 	if l.disabled {
 		return
 	}
@@ -124,7 +125,7 @@ func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	if lvl.value >= l.Level.value {
 		log := Log{
 			Time:    time.Now(),
-			Message: msg,
+			Message: l.toString(msg),
 			Level:   lvl,
 			Data:    data,
 			Logger:  l,
@@ -137,9 +138,12 @@ func (l *Logger) makeLog(msg string, lvl Level, data []interface{}) {
 	}
 }
 
+func (l *Logger) toString(object interface{}) string {
+	return fmt.Sprintf("%v", object)
+}
+
 // method will normalize names if they are too big or too short
 // normal name length if defined by namelen variable
-// if
 func (l *Logger) normalizeName() {
 	length := len(l.Name)
 
@@ -216,27 +220,27 @@ func (l *Logger) normalizeNameLen() {
 }
 
 // Making log with DEBUG level.
-func (l *Logger) Debug(msg string, data ...interface{}) {
+func (l *Logger) Debug(msg interface{}, data ...interface{}) {
 	l.makeLog(msg, DEBUG, data)
 }
 
 // Making log with INFO level.
-func (l *Logger) Info(msg string, data ...interface{}) {
+func (l *Logger) Info(msg interface{}, data ...interface{}) {
 	l.makeLog(msg, INFO, data)
 }
 
 // Making log with WARN level.
-func (l *Logger) Warn(msg string, data ...interface{}) {
+func (l *Logger) Warn(msg interface{}, data ...interface{}) {
 	l.makeLog(msg, WARN, data)
 }
 
 // Making log with ERROR level.
-func (l *Logger) Error(msg string, data ...interface{}) {
+func (l *Logger) Error(msg interface{}, data ...interface{}) {
 	l.makeLog(msg, ERROR, data)
 }
 
 // Making log with PANIC level.
-func (l *Logger) Panic(msg string, data ...interface{}) {
+func (l *Logger) Panic(msg interface{}, data ...interface{}) {
 	l.makeLog(msg, PANIC, data)
 	panic(msg)
 }
