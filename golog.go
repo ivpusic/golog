@@ -26,6 +26,18 @@ func GetLogger(name string) *Logger {
 
 		logger.Enable(StdoutAppender())
 		logger.normalizeName()
+
+		// if new normalized logger name is bigger than previous biggest,
+		// then recalculate logger names
+		// -> user for stdout appender
+		l := len(logger.Name)
+		if l > curnamelen {
+			curnamelen = len(logger.Name)
+			for _, _logger := range loggers {
+				_logger.normalizeName()
+			}
+		}
+
 		loggers[name] = logger
 	}
 

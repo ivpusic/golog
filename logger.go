@@ -44,7 +44,8 @@ var (
 
 	// limit when logger name will be normalized
 	// normalized names are shown in console using stdout appender
-	namelen = 18
+	maxnamelen = 20
+	curnamelen = 7
 
 	// supported name separators
 	separators []byte = []byte{'/', '.', '-'}
@@ -143,13 +144,14 @@ func (l *Logger) normalizeName() {
 	length := len(l.Name)
 
 	// name is ok as it is
-	if length == namelen {
+	if length == maxnamelen || length == curnamelen {
 		return
 	}
 
 	// name is too short, add some spaces
-	if length < namelen {
+	if length < curnamelen {
 		l.normalizeNameLen()
+		return
 	}
 
 	// name is too long
@@ -184,20 +186,22 @@ func (l *Logger) normalizeName() {
 		}
 
 		// if still to long
-		if len(normalized) > namelen {
-			normalized = normalized[:namelen]
+		if len(normalized) > maxnamelen {
+			normalized = normalized[:maxnamelen]
 		}
 	} else {
 		length := len(l.Name)
-		if length > namelen {
-			normalized = l.Name[:namelen]
+		if length > maxnamelen {
+			normalized = l.Name[:maxnamelen]
 		} else {
-			normalized = l.Name[0 : length-1]
+			normalized = l.Name[0:length]
 		}
 	}
 
 	l.Name = normalized
-	if len(l.Name) < namelen {
+	if len(normalized) >= curnamelen {
+		curnamelen = len(normalized)
+	} else {
 		l.normalizeNameLen()
 	}
 }
@@ -205,7 +209,7 @@ func (l *Logger) normalizeName() {
 // if name is still to short we will add spaces
 func (l *Logger) normalizeNameLen() {
 	length := len(l.Name)
-	missing := namelen - length
+	missing := curnamelen - length
 	for i := 0; i < missing; i++ {
 		l.Name += " "
 	}

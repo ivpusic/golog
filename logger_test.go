@@ -171,7 +171,7 @@ func TestLogCallsWithLevel(t *testing.T) {
 
 func normalizeNameLenInTest(name string) string {
 	length := len(name)
-	missing := namelen - length
+	missing := curnamelen - length
 
 	for i := 0; i < missing; i++ {
 		name += " "
@@ -184,7 +184,7 @@ func TestNormalizeName(t *testing.T) {
 	// name is too long
 	l := GetLogger("s.o.m.e.r.e.a.l.l.y.l.o.n.g.n.a.m.e.t.e.s.t.n.a.m.e.")
 	l.Debug(l.Name)
-	assert.Equal(t, normalizeNameLenInTest("s.o.m.e.r.e.a.l.l."), l.Name)
+	assert.Equal(t, normalizeNameLenInTest("s.o.m.e.r.e.a.l.l.y."), l.Name)
 
 	l = GetLogger("github.com/ivpusic/golog")
 	l.Debug(l.Name)
@@ -201,7 +201,7 @@ func TestNormalizeName(t *testing.T) {
 
 	// name is correct
 	rightName := ""
-	for i := 0; i < namelen; i++ {
+	for i := 0; i < curnamelen; i++ {
 		rightName += "a"
 	}
 
