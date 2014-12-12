@@ -90,13 +90,13 @@ func main() {
 Golog provides set of default appenders and ultra simple API for adding new ones.
 
 ##### Stdout
-This logger is enabled by default, so by default you should see messages in your terminal with following structure:
+This appender is enabled by default, so by default you should see messages in your terminal with following structure:
 ```
 {logger_name} {date} {level} {message}
 ```
 
 #### Enabling appenders
-Stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of appender.
+As you know stdout appender is enabled by default. You can enable additional appenders using ``Enable`` method of logger.
 
 ##### File
 ```Go
@@ -173,7 +173,7 @@ func main() {
 	// in this case we are disabling file appender, so we will pass it's id
 	logger.Disable("github.com/ivpusic/golog/appender/file")
 
-  // this log won't go to disable appender
+  	// this log won't go to disabled appender
 	logger.Debug("some message")
 }
 ```
