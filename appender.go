@@ -65,7 +65,7 @@ func StdoutAppender() *Stdout {
 
 		instance = &Stdout{
 			writer:     w,
-			dateformat: "Jan 2 15:04:05 2006",
+			dateformat: "15:04:05",
 		}
 	}
 
