@@ -57,7 +57,7 @@ package main
 
 import "github.com/ivpusic/golog"
 
-func formatting() {
+func main() {
 	logger := golog.Default
 
 	// will output `some cool number 4`
@@ -78,7 +78,7 @@ type SomeType struct {
 	SomethingElse 	int
 }
 
-func formatting() {
+func main() {
 	logger := golog.Default
 
 	data1 := SomeType{"blabla", 10}
