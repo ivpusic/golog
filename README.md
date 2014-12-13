@@ -27,9 +27,10 @@ func main() {
 
 ### Features
 - Multiple loggers
-- Stdout appender
-- File appender
-- Mongo appender
+- Appenders
+	- Stdout appender
+	- File appender
+	- Mongo appender
 - Simple API for writing custom appenders
 - Enabling/disabling appenders
 - Enabling/disabling loggers
