@@ -63,6 +63,30 @@ func formatting() {
 }
 ```
 
+### Attaching data
+You can attach data to log. Be aware that your appender have to support this. Appender will be able to access passed data using ``Data`` member of ``golog.Log`` type. First argument of logging method is string which is actual log message, and other parameters are data which can be optionally attached to log.
+```Go
+package main
+
+import "github.com/ivpusic/golog"
+
+type SomeType struct {
+	Something 		string
+	SomethingElse 	int
+}
+
+func formatting() {
+	logger := golog.Default
+
+	data1 := SomeType{"blabla", 10}
+	data2 := SomeType{"blabla", 10}
+	// first parameter is string, and second is ...inteface{}
+	// the same you can do for other level
+	// once again, appender which you are using should support (save) passed data
+	logger.Debug("some log message", data1, data2)
+}
+```
+
 ### Multiple loggers
 You can ask ``golog`` for logger instance. Logger instances are singletons.
 ```Go
