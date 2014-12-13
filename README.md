@@ -33,6 +33,8 @@ func main() {
 - Simple API for writing custom appenders
 - Enabling/disabling appenders
 - Enabling/disabling loggers
+- Attaching log data
+- Formatting logs
 
 ### Installation
 ```Shell
