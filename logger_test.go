@@ -188,11 +188,11 @@ func TestNormalizeName(t *testing.T) {
 
 	l = GetLogger("github.com/ivpusic/golog")
 	l.Debug(l.Name)
-	assert.Equal(t, normalizeNameLenInTest("g/i/g"), l.Name)
+	assert.Equal(t, normalizeNameLenInTest("git/ivp/gol"), l.Name)
 
 	l = GetLogger("github.com.ivpusic.golog")
 	l.Debug(l.Name)
-	assert.Equal(t, normalizeNameLenInTest("g.c.i.g"), l.Name)
+	assert.Equal(t, normalizeNameLenInTest("git.com.ivp.gol"), l.Name)
 
 	// name is too short
 	l = GetLogger("main")

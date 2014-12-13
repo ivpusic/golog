@@ -179,13 +179,27 @@ func (l *Logger) normalizeName() {
 
 	// if we sucesufully splitted string into multiple parts
 	if len(parts) > 1 {
+		appendSeparator := true
+
 		for i, str := range parts {
 			// if part length is bigger than zero
-			if len(str) > 0 {
+			switch len(str) {
+			case 0:
+				appendSeparator = false
+				break
+			case 1:
 				normalized += str[:1]
-				if i != (len(parts) - 1) {
-					normalized += string(separator)
-				}
+				break
+			case 2:
+				normalized += str[:2]
+				break
+			default:
+				normalized += str[:3]
+				break
+			}
+
+			if appendSeparator && (i != (len(parts) - 1)) {
+				normalized += string(separator)
 			}
 		}
 
