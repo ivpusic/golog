@@ -47,6 +47,22 @@ Currently supported levels are
 - ERROR
 - PANIC (in this case program will panic)
 
+### Formatting
+Normally you call one of ``Debug``, ``Info``, etc.. methods of logger when you want to log some string. But somethimes you want to format your log, and you wanto to pass log format and parameters related to log format. Let's see example:
+```Go
+package main
+
+import "github.com/ivpusic/golog"
+
+func formatting() {
+	logger := golog.Default
+
+	// will output `some cool number 4`
+	// the same you can do for other levels
+	logger.Debugf("some %s number %d", "cool", 4)
+}
+```
+
 ### Multiple loggers
 You can ask ``golog`` for logger instance. Logger instances are singletons.
 ```Go

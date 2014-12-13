@@ -259,6 +259,31 @@ func (l *Logger) Panic(msg interface{}, data ...interface{}) {
 	panic(msg)
 }
 
+// Making formatted log with DEBUG level.
+func (l *Logger) Debugf(msg string, params ...interface{}) {
+	l.makeLog(fmt.Sprintf(msg, params...), DEBUG, nil)
+}
+
+// Making formatted log with INFO level.
+func (l *Logger) Infof(msg string, params ...interface{}) {
+	l.makeLog(fmt.Sprintf(msg, params...), INFO, nil)
+}
+
+// Making formatted log with WARN level.
+func (l *Logger) Warnf(msg string, params ...interface{}) {
+	l.makeLog(fmt.Sprintf(msg, params...), WARN, nil)
+}
+
+// Making formatted log with ERROR level.
+func (l *Logger) Errorf(msg string, params ...interface{}) {
+	l.makeLog(fmt.Sprintf(msg, params...), ERROR, nil)
+}
+
+// Making formatted log with PANIC level.
+func (l *Logger) Panicf(msg string, params ...interface{}) {
+	l.makeLog(fmt.Sprintf(msg, params...), PANIC, nil)
+}
+
 // When you want to send logs to another appender,
 // you should create instance of appender and call this method.
 // Method is expecting appender instance to be passed

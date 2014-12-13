@@ -8,9 +8,11 @@ import (
 type testAppender struct {
 	count      int
 	errorCount int
+	msg        string
 }
 
 func (s *testAppender) Append(log Log) {
+	s.msg = log.Message
 	s.count += 1
 
 	if log.Level.value >= 30 {
@@ -127,6 +129,26 @@ func TestLogCalls(t *testing.T) {
 	Default.Panic("some msg")
 
 	assert.Exactly(t, 8, ta.count)
+
+	ta.msg = ""
+	Default.Debugf("some %s", "message")
+	assert.Equal(t, "some message", ta.msg)
+
+	ta.msg = ""
+	Default.Infof("some %d %s", 3, "message")
+	assert.Equal(t, "some 3 message", ta.msg)
+
+	ta.msg = ""
+	Default.Warnf("some %s", "message")
+	assert.Equal(t, "some message", ta.msg)
+
+	ta.msg = ""
+	Default.Errorf("some %d %s", 3, "message")
+	assert.Equal(t, "some 3 message", ta.msg)
+
+	ta.msg = ""
+	Default.Errorf("some %s message", 3, "panic")
+	assert.Equal(t, "some panic message", ta.msg)
 }
 
 func TestLogCallsWithLevel(t *testing.T) {
