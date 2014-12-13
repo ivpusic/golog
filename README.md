@@ -229,6 +229,20 @@ func main() {
 }
 ```
 
+### Conventions
+We should name propperly our loggers and appenders if we want that others don't have troubles when they want to use them.
+
+#### Logger names
+Logger name should be ``go get`` path of your library. So for example if you have library hosted on github, and users are getting library with ``go get github.com/someuser/somelibrary``, then you shold use logger:
+```Go
+logger := golog.GetLogger("github.com/someuser/somelibrary")
+```
+On this way users will easily get logger of your library, change its level, enable it or disable it.
+#### Appender names
+Let we say that you hosted your appender on github, and whole repo is reserved only for that appender, so users will get your appender with ``go get github.com/someuser/someappender``. In this case ID of appender should be ``github.com/someuser/someappender``.
+
+In case that you have one repo and in that repo you have multiple appenders available, then you append appender name to ``go get`` path. So if your repository is ``github.com/someuser/appenders``, and you have appender A and appender B available in that repo, then ID of appender A should be ``github.com/someuser/appenders/A`` and ID of appender B should be ``github.com/someuser/appenders/B``.
+
 ### GoDoc
 For additional documentation and detailed info about package structures please visit  [this](https://godoc.org/github.com/ivpusic/golog) link.
 
