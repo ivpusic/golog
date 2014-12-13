@@ -48,7 +48,7 @@ Currently supported levels are
 - PANIC (in this case program will panic)
 
 ### Formatting
-Normally you call one of ``Debug``, ``Info``, etc.. methods of logger when you want to log some string. But somethimes you want to format your log, and you wanto to pass log format and parameters related to log format. Let's see example:
+Normally you call one of ``Debug``, ``Info``, etc.. methods of logger when you want to log some string. But sometimes you want to format your log, and you wan to to pass log format and parameters related to log format. Let's see example:
 ```Go
 package main
 
