@@ -17,7 +17,7 @@ func main() {
 	logger := golog.Default
 	
 	// default level for all loggers is DEBUG
-	// you can easily change it it you want
+	// you can easily change it if you want
 	logger.Level = golog.WARN
 
 	// log something
