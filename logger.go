@@ -282,6 +282,7 @@ func (l *Logger) Errorf(msg string, params ...interface{}) {
 // Making formatted log with PANIC level.
 func (l *Logger) Panicf(msg string, params ...interface{}) {
 	l.makeLog(fmt.Sprintf(msg, params...), PANIC, nil)
+	panic(msg)
 }
 
 // When you want to send logs to another appender,
