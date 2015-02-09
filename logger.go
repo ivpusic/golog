@@ -116,25 +116,27 @@ type Logger struct {
 	DoPanic bool `json:"-"`
 }
 
-// Making and sending log entry to appenders if log level is appropriate.
-func (l *Logger) makeLog(msg interface{}, lvl Level, data []interface{}) {
-	if l.disabled {
-		return
+func (l *Logger) shouldAppend(lvl Level) bool {
+	if l.disabled || lvl.value < l.Level.value {
+		return false
 	}
 
-	if lvl.value >= l.Level.value {
-		log := Log{
-			Time:    time.Now(),
-			Message: l.toString(msg),
-			Level:   lvl,
-			Data:    data,
-			Logger:  l,
-			Pid:     os.Getpid(),
-		}
+	return true
+}
 
-		for _, appender := range l.appenders {
-			appender.Append(log)
-		}
+// Making and sending log entry to appenders if log level is appropriate.
+func (l *Logger) makeLog(msg interface{}, lvl Level, data []interface{}) {
+	log := Log{
+		Time:    time.Now(),
+		Message: l.toString(msg),
+		Level:   lvl,
+		Data:    data,
+		Logger:  l,
+		Pid:     os.Getpid(),
+	}
+
+	for _, appender := range l.appenders {
+		appender.Append(log)
 	}
 }
 
@@ -235,54 +237,74 @@ func (l *Logger) normalizeNameLen() {
 
 // Making log with DEBUG level.
 func (l *Logger) Debug(msg interface{}, data ...interface{}) {
-	l.makeLog(msg, DEBUG, data)
+	if l.shouldAppend(DEBUG) {
+		l.makeLog(msg, DEBUG, data)
+	}
 }
 
 // Making log with INFO level.
 func (l *Logger) Info(msg interface{}, data ...interface{}) {
-	l.makeLog(msg, INFO, data)
+	if l.shouldAppend(INFO) {
+		l.makeLog(msg, INFO, data)
+	}
 }
 
 // Making log with WARN level.
 func (l *Logger) Warn(msg interface{}, data ...interface{}) {
-	l.makeLog(msg, WARN, data)
+	if l.shouldAppend(WARN) {
+		l.makeLog(msg, WARN, data)
+	}
 }
 
 // Making log with ERROR level.
 func (l *Logger) Error(msg interface{}, data ...interface{}) {
-	l.makeLog(msg, ERROR, data)
+	if l.shouldAppend(ERROR) {
+		l.makeLog(msg, ERROR, data)
+	}
 }
 
 // Making log with PANIC level.
 func (l *Logger) Panic(msg interface{}, data ...interface{}) {
-	l.makeLog(msg, PANIC, data)
-	panic(msg)
+	if l.shouldAppend(PANIC) {
+		l.makeLog(msg, PANIC, data)
+		panic(msg)
+	}
 }
 
 // Making formatted log with DEBUG level.
 func (l *Logger) Debugf(msg string, params ...interface{}) {
-	l.makeLog(fmt.Sprintf(msg, params...), DEBUG, nil)
+	if l.shouldAppend(DEBUG) {
+		l.makeLog(fmt.Sprintf(msg, params...), DEBUG, nil)
+	}
 }
 
 // Making formatted log with INFO level.
 func (l *Logger) Infof(msg string, params ...interface{}) {
-	l.makeLog(fmt.Sprintf(msg, params...), INFO, nil)
+	if l.shouldAppend(INFO) {
+		l.makeLog(fmt.Sprintf(msg, params...), INFO, nil)
+	}
 }
 
 // Making formatted log with WARN level.
 func (l *Logger) Warnf(msg string, params ...interface{}) {
-	l.makeLog(fmt.Sprintf(msg, params...), WARN, nil)
+	if l.shouldAppend(WARN) {
+		l.makeLog(fmt.Sprintf(msg, params...), WARN, nil)
+	}
 }
 
 // Making formatted log with ERROR level.
 func (l *Logger) Errorf(msg string, params ...interface{}) {
-	l.makeLog(fmt.Sprintf(msg, params...), ERROR, nil)
+	if l.shouldAppend(ERROR) {
+		l.makeLog(fmt.Sprintf(msg, params...), ERROR, nil)
+	}
 }
 
 // Making formatted log with PANIC level.
 func (l *Logger) Panicf(msg string, params ...interface{}) {
-	l.makeLog(fmt.Sprintf(msg, params...), PANIC, nil)
-	panic(msg)
+	if l.shouldAppend(PANIC) {
+		l.makeLog(fmt.Sprintf(msg, params...), PANIC, nil)
+		panic(msg)
+	}
 }
 
 // When you want to send logs to another appender,
