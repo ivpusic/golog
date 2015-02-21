@@ -17,7 +17,7 @@ func main() {
 	logger := golog.Default
 	
 	// default level for all loggers is DEBUG
-	// you can easily change it it you want
+	// you can easily change it if you want
 	logger.Level = golog.WARN
 
 	// log something
@@ -27,12 +27,15 @@ func main() {
 
 ### Features
 - Multiple loggers
-- Stdout appender
-- File appender
-- Mongo appender
+- Appenders
+	- Stdout appender
+	- File appender
+	- Mongo appender
 - Simple API for writing custom appenders
 - Enabling/disabling appenders
 - Enabling/disabling loggers
+- Attaching log data
+- Formatting logs
 
 ### Installation
 ```Shell
@@ -54,7 +57,7 @@ package main
 
 import "github.com/ivpusic/golog"
 
-func formatting() {
+func main() {
 	logger := golog.Default
 
 	// will output `some cool number 4`
@@ -75,7 +78,7 @@ type SomeType struct {
 	SomethingElse 	int
 }
 
-func formatting() {
+func main() {
 	logger := golog.Default
 
 	data1 := SomeType{"blabla", 10}
