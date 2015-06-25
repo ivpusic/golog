@@ -9,35 +9,35 @@ import (
 
 var (
 	DEBUG = Level{
-		value: 10,
+		Value: 10,
 		color: "blue",
 		icon:  "★",
 		Name:  "DEBUG",
 	}
 
 	INFO = Level{
-		value: 20,
+		Value: 20,
 		color: "green",
 		icon:  "♥",
 		Name:  "INFO",
 	}
 
 	WARN = Level{
-		value: 30,
+		Value: 30,
 		color: "yellow",
 		icon:  "\u26A0",
 		Name:  "WARN",
 	}
 
 	ERROR = Level{
-		value: 40,
+		Value: 40,
 		color: "red",
 		Name:  "ERROR",
 		icon:  "✖",
 	}
 
 	PANIC = Level{
-		value: 50,
+		Value: 50,
 		color: "black",
 		icon:  "☹",
 		Name:  "PANIC",
@@ -56,7 +56,7 @@ var (
 type Level struct {
 	// level priority value
 	// bigger number has bigger priority
-	value int
+	Value int
 
 	// color which will used by stdout appender
 	// github.com/ivpusic/go-clicolor
@@ -117,7 +117,7 @@ type Logger struct {
 }
 
 func (l *Logger) shouldAppend(lvl Level) bool {
-	if l.disabled || lvl.value < l.Level.value {
+	if l.disabled || lvl.Value < l.Level.Value {
 		return false
 	}
 

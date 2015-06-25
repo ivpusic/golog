@@ -1,8 +1,9 @@
 package golog
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 type testAppender struct {
@@ -15,7 +16,7 @@ func (s *testAppender) Append(log Log) {
 	s.msg = log.Message
 	s.count += 1
 
-	if log.Level.value >= 30 {
+	if log.Level.Value >= 30 {
 		s.errorCount += 1
 	}
 }
