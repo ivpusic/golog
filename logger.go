@@ -52,6 +52,8 @@ var (
 	separators []byte = []byte{'/', '.', '-'}
 )
 
+type Ctx map[string]interface{}
+
 // Representing log level
 type Level struct {
 	// level priority value
@@ -85,6 +87,9 @@ type Log struct {
 	// appender can decide to ignore data or to store it on specific way
 	Data []interface{} `json:"data"`
 
+	// represents data bound to contextual logger
+	Ctx Ctx
+
 	// id of process which made log
 	Pid int `json:"pid"`
 
@@ -114,6 +119,9 @@ type Logger struct {
 	// appender should panic. This also depends on appender implementation,
 	// so appender can decide to ignore or to accept information in this flag
 	DoPanic bool `json:"-"`
+
+	// represents data bound to contextual logger
+	ctx Ctx
 }
 
 func (l *Logger) shouldAppend(lvl Level) bool {
@@ -133,6 +141,7 @@ func (l *Logger) makeLog(msg interface{}, lvl Level, data []interface{}) {
 		Data:    data,
 		Logger:  l,
 		Pid:     os.Getpid(),
+		Ctx:     l.ctx,
 	}
 
 	for _, appender := range l.appenders {
@@ -349,4 +358,18 @@ func (l *Logger) Disable(target interface{}) {
 			return
 		}
 	}
+}
+
+// Will set context to current logger.
+// Later appenders will be able to extract context from Log instance.
+func (l *Logger) SetContext(ctx Ctx) *Logger {
+	l.ctx = ctx
+	return l
+}
+
+// Will copy current logger and return instance of new one.
+func (l *Logger) Copy() *Logger {
+	ctxLogger := &Logger{}
+	*ctxLogger = *l
+	return ctxLogger
 }

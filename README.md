@@ -27,6 +27,8 @@ func main() {
 
 ### Features
 - Multiple loggers
+- Logger Context
+- Copying Logger
 - Appenders
 	- Stdout appender
 	- File appender
@@ -63,6 +65,34 @@ func main() {
 	// will output `some cool number 4`
 	// the same you can do for other levels
 	logger.Debugf("some %s number %d", "cool", 4)
+}
+```
+
+### Logger Context
+Every logger can have it's own context. Later every appender will be able to extract context which is shared between all logs sent by that logger.
+
+```Go
+package main
+
+import "github.com/ivpusic/golog"
+
+func main() {
+  logger := golog.Default
+
+  logger.SetContext(golog.Ctx{
+    "field1": 123,
+    "field2": "value"
+  })
+
+  // Calling copy will make new instance of logger, 
+  // but with all values copied from original logger.
+  // After copy loggers are independent instances.
+  logger = logger.Copy().SetContext(golog.Ctx{
+    "field1": 123,
+    "field2": "value"
+  })
+  
+  logger.Debug("message")
 }
 ```
 
