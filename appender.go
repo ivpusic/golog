@@ -2,6 +2,7 @@ package golog
 
 import (
 	"fmt"
+
 	color "github.com/ivpusic/go-clicolor/clicolor"
 )
 
@@ -19,7 +20,7 @@ type Appender interface {
 
 // Representing stdout appender.
 type Stdout struct {
-	dateformat string
+	DateFormat string
 }
 
 var (
@@ -30,7 +31,7 @@ var (
 func (s *Stdout) Append(log Log) {
 	msg := fmt.Sprintf(" {cyan}%s {default}%s {%s}%s[%s] ▶ %s",
 		log.Logger.Name,
-		log.Time.Format(s.dateformat),
+		log.Time.Format(s.DateFormat),
 		log.Level.color,
 		log.Level.icon,
 		log.Level.Name[:4],
@@ -50,7 +51,7 @@ func StdoutAppender() *Stdout {
 	if instance == nil {
 
 		instance = &Stdout{
-			dateformat: "15:04:05",
+			DateFormat: "15:04:05",
 		}
 	}
 
