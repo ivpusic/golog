@@ -15,7 +15,7 @@ import "github.com/ivpusic/golog"
 func main() {
 	// get default logger
 	logger := golog.Default
-	
+
 	// default level for all loggers is DEBUG
 	// you can easily change it if you want
 	logger.Level = golog.WARN
@@ -84,17 +84,21 @@ func main() {
     "field2": "value"
   })
 
-  // Calling copy will make new instance of logger, 
+  // Calling copy will make new instance of logger,
   // but with all values copied from original logger.
   // After copy loggers are independent instances.
   logger = logger.Copy().SetContext(golog.Ctx{
     "field1": 123,
     "field2": "value"
   })
-  
+
   logger.Debug("message")
 }
 ```
+
+#### Update Context
+
+If you have some new value which you would like to have in all next logs for logger, you can use `AddContextKey` function to append single key/value pair to logger context.
 
 ### Attaching data
 You can attach data to log. Be aware that your appender have to support this. Appender will be able to access passed data using ``Data`` member of ``golog.Log`` type. First argument of logging method is string which is actual log message, and other parameters are data which can be optionally attached to log.
@@ -127,7 +131,7 @@ package main
 
 import "github.com/ivpusic/golog"
 
-func main() {	
+func main() {
 	// get logger with name github.com/someuser/somelib
 	// if logged doesn't exists, it will be created
 	logger := golog.GetLogger("github.com/someuser/somelib")
@@ -235,13 +239,13 @@ func main() {
 	appender := appenders.File(golog.Conf{
 		"path": "/path/to/log.txt",
 	})
-	
+
 	// let we say that we first enabled appender
 	logger.Enable(appender)
 
 	// and at the some point we want to disable it
 	logger.Disable(appender)
-	
+
 	// you can also disable appender by passing appender id
 	// in this case we are disabling file appender, so we will pass it's id
 	logger.Disable("github.com/ivpusic/golog/appender/file")

@@ -22,6 +22,7 @@ func GetLogger(name string) *Logger {
 		logger = &Logger{
 			Name:  name,
 			Level: DEBUG,
+			ctx:   Ctx{},
 		}
 
 		logger.Enable(StdoutAppender())

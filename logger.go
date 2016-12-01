@@ -367,6 +367,11 @@ func (l *Logger) SetContext(ctx Ctx) *Logger {
 	return l
 }
 
+func (l *Logger) AddContextKey(key string, value interface{}) *Logger {
+	l.ctx[key] = value
+	return l
+}
+
 // Will copy current logger and return instance of new one.
 func (l *Logger) Copy() *Logger {
 	ctxLogger := &Logger{}
