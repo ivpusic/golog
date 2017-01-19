@@ -1,7 +1,7 @@
 golog
 =====
 [![Build Status](https://travis-ci.org/ivpusic/golog.svg?branch=master)](https://travis-ci.org/ivpusic/golog)
-1
+
 Simple but powerful go logging library
 
 ![alt text](http://s2.postimg.org/gocipacjt/Screenshot_from_2014_12_11_13_11_11.png "")
