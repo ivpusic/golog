@@ -1,5 +1,6 @@
 golog
 =====
+
 [![Build Status](https://travis-ci.org/ivpusic/golog.svg?branch=master)](https://travis-ci.org/ivpusic/golog)
 1
 Simple but powerful go logging library
