@@ -2,8 +2,6 @@ pipeline:
   build:
     image: golang:1.6
     commands:
-      - env
-      - pwd
       - export GOPATH=/drone
       - go get
       - go get github.com/stretchr/testify/assert
