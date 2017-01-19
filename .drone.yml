@@ -2,7 +2,9 @@ pipeline:
   build:
     image: golang:1.6
     commands:
-      - go get ./...
+      - env
+      - pwd
+      - go get
       - go get github.com/stretchr/testify/assert
       - go build
       - go test
