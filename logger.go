@@ -58,7 +58,7 @@ type Ctx map[string]interface{}
 type Level struct {
 	// level priority value
 	// bigger number has bigger priority
-	Value int
+	Value int `json:"value"`
 
 	// color which will used by stdout appender
 	// github.com/ivpusic/go-clicolor
@@ -68,7 +68,7 @@ type Level struct {
 	icon string
 
 	// level name
-	Name string
+	Name string `json:"name"`
 }
 
 // Representing one Log instance
@@ -88,7 +88,7 @@ type Log struct {
 	Data []interface{} `json:"data"`
 
 	// represents data bound to contextual logger
-	Ctx Ctx
+	Ctx Ctx `json:"ctx"`
 
 	// id of process which made log
 	Pid int `json:"pid"`
@@ -135,7 +135,7 @@ func (l *Logger) shouldAppend(lvl Level) bool {
 // Making and sending log entry to appenders if log level is appropriate.
 func (l *Logger) makeLog(msg interface{}, lvl Level, data []interface{}) {
 	log := Log{
-		Time:    time.Now(),
+		Time:    time.Now().UTC(),
 		Message: l.toString(msg),
 		Level:   lvl,
 		Data:    data,
@@ -376,5 +376,6 @@ func (l *Logger) AddContextKey(key string, value interface{}) *Logger {
 func (l *Logger) Copy() *Logger {
 	ctxLogger := &Logger{}
 	*ctxLogger = *l
+
 	return ctxLogger
 }
