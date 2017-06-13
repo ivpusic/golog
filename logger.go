@@ -11,21 +11,21 @@ var (
 	DEBUG = Level{
 		Value: 10,
 		color: "blue",
-		icon:  "★",
+		icon:  "",
 		Name:  "DEBUG",
 	}
 
 	INFO = Level{
 		Value: 20,
 		color: "green",
-		icon:  "♥",
+		icon:  "",
 		Name:  "INFO",
 	}
 
 	WARN = Level{
 		Value: 30,
 		color: "yellow",
-		icon:  "\u26A0",
+		icon:  "",
 		Name:  "WARN",
 	}
 
@@ -33,13 +33,13 @@ var (
 		Value: 40,
 		color: "red",
 		Name:  "ERROR",
-		icon:  "✖",
+		icon:  "",
 	}
 
 	PANIC = Level{
 		Value: 50,
 		color: "black",
-		icon:  "☹",
+		icon:  "",
 		Name:  "PANIC",
 	}
 
